@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário 2026 TJGO</title>
+    <title>Calendário 2026 TJGO - Flipbook</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dflip@1.0.9/css/dflip.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dflip@1.0.9/css/themify-icons.min.css">
+
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #333; }
-        #pdf-viewer { width: 100%; height: 100vh; border: none; }
+        body, html { margin: 0; padding: 0; height: 100%; background-color: #222; }
+        #my-flipbook { height: 100vh; width: 100%; }
     </style>
 </head>
 <body>
 
-    <iframe id="pdf-viewer" 
-        src="https://docs.google.com/viewer?url=https://divisao-impressao-digital.github.io/index.html/Calendário Mesa (APROVADO) TJGO 2026.pdf&embedded=true">
-    </iframe>
+    <div id="my-flipbook" class="_df_book" 
+         source="https://divisao-impressao-digital.github.io/index.html/Calendário Mesa (APROVADO) TJGO 2026.pdf">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dflip@1.0.9/js/dflip.min.js"></script>
 
 </body>
 </html>
