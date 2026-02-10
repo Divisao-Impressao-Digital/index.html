@@ -2,7 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Calendário 2026</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário Mesa 2026 - TJGO</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dflip@1.0.9/css/dflip.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dflip@1.0.9/css/themify-icons.min.css">
@@ -16,7 +17,7 @@
 
     <div id="flipbook-container">
         <div class="_df_book" 
-             source="https://divisao-impressao-digital.github.io/calendario/calendarioMesa2026.pdf" 
+             source="calendarioMesa2026.pdf" 
              id="df_book_id">
         </div>
     </div>
