@@ -20,7 +20,7 @@
              height="100%"
              webgl="true"
              backgroundcolor="#1a1a1a"
-             source="https://divisao-impressao-digital.github.io/index.html/calendarioMesa2026.pdf" 
+             source="https://divisao-impressao-digital.github.io/calendario/calendarioMesa2026.pdf" 
              id="df_manual_book">
         </div>
     </div>
