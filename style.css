@@ -462,3 +462,109 @@ h1 {
    ================================================ */
 
 /* portrait rotation handled by JS */
+
+/* ================================================
+   PRÉ-CARREGAMENTO: calendário oculto até OK
+   ================================================ */
+
+#cal-wrapper.bloqueado {
+    display: none;
+}
+
+#overlay-preload {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99998;
+}
+
+#overlay-preload.ativo {
+    display: block;
+}
+
+/* ================================================
+   OVERLAY DE ORIENTAÇÃO (landscape físico)
+   Restrito a dispositivos touch (pointer: coarse)
+   ================================================ */
+
+#overlay-orientacao {
+    display: none;
+}
+
+@media screen and (pointer: coarse) and (orientation: landscape) {
+    #overlay-orientacao {
+        display: flex !important;
+        background: rgba(0, 0, 0, 0.85);
+        position: fixed;
+        z-index: 9999;
+        width: 100vw;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 24px;
+    }
+}
+
+#overlay-orientacao-txt {
+    font-size: clamp(0.9rem, 3vw, 1.3rem);
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    max-width: 340px;
+}
+
+/* ================================================
+   TUTORIAL SWIPE (animação de dedo)
+   Restrito a dispositivos touch (pointer: coarse)
+   ================================================ */
+
+#tutorial-swipe {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99997;
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (pointer: coarse) {
+    #tutorial-swipe.ativo {
+        display: flex;
+    }
+}
+
+#tutorial-dedo {
+    position: absolute;
+    width: 50px;
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.75);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+    transform-origin: center;
+    animation: swipeHint 2s ease-in-out infinite;
+}
+
+#tutorial-swipe.girado #tutorial-dedo {
+    transform: rotate(90deg);
+    animation: swipeHintGirado 2s ease-in-out infinite;
+}
+
+#tutorial-swipe.saindo {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+@keyframes swipeHint {
+    0%   { transform: translateX(50px);  opacity: 0; }
+    50%  { transform: translateX(-50px); opacity: 1; }
+    100% { transform: translateX(-50px); opacity: 0; }
+}
+
+@keyframes swipeHintGirado {
+    0%   { transform: rotate(90deg) translateX(50px);  opacity: 0; }
+    50%  { transform: rotate(90deg) translateX(-50px); opacity: 1; }
+    100% { transform: rotate(90deg) translateX(-50px); opacity: 0; }
+}
