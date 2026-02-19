@@ -19,6 +19,18 @@ var paginaAtual = 1;
 var total       = paginas.length;
 var animando    = false;
 
+function isTouch() {
+    return window.matchMedia("(pointer: coarse)").matches;
+}
+
+function isMobileTablet() {
+    return Math.max(window.innerWidth, window.innerHeight) <= 1023;
+}
+
+function isPortrait() {
+    return window.innerHeight > window.innerWidth;
+}
+
 /* ------------------------------------------------
    MODAL
    ------------------------------------------------ */
@@ -30,7 +42,13 @@ function abrirModal(mensagem) {
 }
 
 function fecharModal() {
+    if (isTouch() && isMobileTablet() && !isPortrait()) {
+        return;
+    }
     document.getElementById("modal-aviso").setAttribute("aria-hidden", "true");
+    document.getElementById("cal-wrapper").classList.remove("bloqueado");
+    document.getElementById("overlay-preload").classList.remove("ativo");
+    mostrarTutorial();
 }
 
 /* ------------------------------------------------
@@ -67,14 +85,6 @@ function mostrarPagina(num, direcao) {
             atualizarUI();
         }, 350);
     }, 300);
-}
-
-function isMobileTablet() {
-    return Math.max(window.innerWidth, window.innerHeight) <= 1023;
-}
-
-function isPortrait() {
-    return window.innerHeight > window.innerWidth;
 }
 
 function ajustarBotoesLaterais() {
@@ -120,8 +130,8 @@ function atualizarUI() {
     var atPrimeira = paginaAtual === 1;
     var atUltima   = paginaAtual === total;
 
-    document.getElementById("btnAnterior").disabled        = atPrimeira;
-    document.getElementById("btnProximo").disabled         = atUltima;
+    document.getElementById("btnAnterior").disabled         = atPrimeira;
+    document.getElementById("btnProximo").disabled          = atUltima;
     document.getElementById("btnLateral-anterior").disabled = atPrimeira;
     document.getElementById("btnLateral-proximo").disabled  = atUltima;
 
@@ -153,25 +163,55 @@ function paginaAnterior() {
 }
 
 /* ------------------------------------------------
+   TUTORIAL SWIPE
+   ------------------------------------------------ */
+
+function mostrarTutorial() {
+    if (!isTouch()) return;
+    var el = document.getElementById("tutorial-swipe");
+    el.classList.add("girado");
+    el.classList.add("ativo");
+
+    function encerrarTutorial() {
+        el.classList.add("saindo");
+        setTimeout(function () {
+            if (el.parentNode) {
+                el.parentNode.removeChild(el);
+            }
+        }, 500);
+    }
+    document.addEventListener("touchstart", encerrarTutorial, { once: true });
+}
+
+/* ------------------------------------------------
    INIT
    ------------------------------------------------ */
 
 document.addEventListener("DOMContentLoaded", function () {
     ajustarOrientacao();
     ajustarBotoesLaterais();
+
     window.addEventListener("resize", function () {
         ajustarOrientacao();
         ajustarBotoesLaterais();
     });
     window.addEventListener("orientationchange", function () {
-        setTimeout(function () {
-            ajustarOrientacao();
-            ajustarBotoesLaterais();
-        }, 80);
+        if (isTouch() && isMobileTablet()) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 80);
+        } else {
+            setTimeout(function () {
+                ajustarOrientacao();
+                ajustarBotoesLaterais();
+            }, 80);
+        }
     });
 
-    if (isMobileTablet() && isPortrait()) {
-        abrirModal("Para uma melhor experiência, mantenha o bloqueio de rotação do seu dispositivo ativado.");
+    if (isTouch() && isMobileTablet()) {
+        document.getElementById("cal-wrapper").classList.add("bloqueado");
+        document.getElementById("overlay-preload").classList.add("ativo");
+        abrirModal("Para uma melhor experiência, mantenha o bloqueio de rotação do seu dispositivo ativado e segure o aparelho em pé.");
     }
 
     var img = document.getElementById("paginaImg");
